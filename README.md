@@ -29,7 +29,6 @@ conda env create -f environment.yaml
 
 Use pseudo interative demonstrator to equip the model with our NavMorph:
 ```
-cd Nav_Morph
 bash run_r2r/main.bash eval 
 ```
 
