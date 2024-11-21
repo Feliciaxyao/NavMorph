@@ -23,7 +23,7 @@ conda activate morph
 ```
 conda env create -f environment.yaml
 ```
-4. Please download the preprocessed data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1w2-rFj1IshOEG5WDhlyl-pCUXeBYt_ls?usp=drive_link)
+4. Please download the pretrained models and checkpoints from [GoogleDrive](https://drive.google.com/file/d/1x01wods-LUA6EyAD8C3ahiEaO8lKD6jy/view?usp=sharing)
 
 ### Online Evaluation
 
