@@ -9,19 +9,19 @@ NavMorph: A Self-Evolving World Model for Vision-and-Language Navigation in Cont
 
 ### Prerequisites
 
-1. Follow the [Habitat Installation Guide](https://github.com/facebookresearch/habitat-lab#installation) and [VLN-CE](https://github.com/jacobkrantz/VLN-CE) to install ['habitat-lab'](https://github.com/facebookresearch/habitat-lab) and ['habitat-sim'](https://github.com/facebookresearch/habitat-sim). We use version 'v0.2.1' in our experiments.
+1. Follow the [Habitat Installation Guide](https://github.com/facebookresearch/habitat-lab#installation) and [VLN-CE](https://github.com/jacobkrantz/VLN-CE) to install [`habitat-lab`](https://github.com/facebookresearch/habitat-lab) and [`habitat-sim`](https://github.com/facebookresearch/habitat-sim). We use version 'v0.2.1' in our experiments.
    
-2. Install 'torch_kdtree' and 'tinycudann': follow instructions [here](https://github.com/MrZihan/Sim2Real-VLN-3DFF). 
+2. Install `torch_kdtree` and `tinycudann`: follow instructions [here](https://github.com/MrZihan/Sim2Real-VLN-3DFF). 
 
 3. Install requirements:
 ```setup
 conda create --name morph python=3.7.11
 conda activate morph
 ```
-* Required packages are listed in `requirements.txt`. You can install by running:
+* Required packages are listed in `environment.yaml`. You can install by running:
 
 ```
-pip install -r requirements.txt
+conda env create -f environment.yaml
 ```
 
 
