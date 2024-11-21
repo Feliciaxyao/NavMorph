@@ -27,8 +27,8 @@ conda env create -f environment.yaml
 
 ### Online Evaluation
 
-Use pseudo interative demonstrator to equip the model with our FSTTA:
-```TTA during test time
+Use pseudo interative demonstrator to equip the model with our NavMorph:
+```
 cd Nav_Morph
 bash run_r2r/main.bash eval 
 ```
