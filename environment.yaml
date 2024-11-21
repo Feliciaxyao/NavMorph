@@ -280,4 +280,4 @@ dependencies:
     - xxhash==3.2.0
     - yacs==0.1.8
     - zipp==3.7.0
-prefix: /opt/conda/envs/habitat
+prefix: /opt/conda/envs/morph
