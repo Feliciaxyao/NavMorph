@@ -37,5 +37,6 @@ bash run_r2r/main.bash eval
 
 
 ## Notice:
-Our codes are uploaded only for peer review, please do not distribute them. The code is used to reproduce our experimental results on R2R-CE dataset; the complete code will be released if the paper is accepted.
+Our codes are uploaded only for peer review, please do not distribute them. The code is used to reproduce our experimental results on R2R-CE dataset.
+The complete code will be released if the paper is accepted.
 
