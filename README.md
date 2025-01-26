@@ -5,7 +5,7 @@ NavMorph: A Self-Evolving World Model for Vision-and-Language Navigation in Cont
 ![image](img/EWM.png)
 
 
-## Usage
+## Usage (New for HNR-Navmorph!)
 
 ### Prerequisites
 
@@ -32,6 +32,12 @@ Use pseudo interative demonstrator to equip the model with our NavMorph:
 bash run_r2r/main.bash eval 
 ```
 
+### HNR-Navmorph
+
+Use pseudo interative demonstrator to equip the model with our NavMorph:
+```
+bash run_r2r/main.bash train/eval 
+```
 
 
 
