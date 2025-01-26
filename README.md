@@ -36,8 +36,9 @@ bash run_r2r/main.bash eval
 
 Use pseudo interative demonstrator to equip the model with our NavMorph:
 ```
-bash run_r2r/main.bash train
-bash run_r2r/main.bash eval 
+cd HNR-NavMorph
+bash run_r2r/nerf.bash train
+bash run_r2r/nerf.bash eval 
 ```
 
 
