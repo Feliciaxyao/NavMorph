@@ -5,7 +5,7 @@ NavMorph: A Self-Evolving World Model for Vision-and-Language Navigation in Cont
 ![image](img/EWM.png)
 
 
-## Usage (New for HNR-Navmorph!)
+## Usage
 
 ### Prerequisites
 
