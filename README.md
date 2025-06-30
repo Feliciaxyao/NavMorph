@@ -68,11 +68,11 @@ These adjustments are essential for proper camera calibration and to avoid discr
 
 ## 📢 TODO list：
 
-◻️ Checkpoints for RxR-CE release
+-◻️ Checkpoints for RxR-CE release
 
-◻️ Pre-trained CEM for RxR-CE release
+-◻️ Pre-trained CEM for RxR-CE release
 
-◻️ Real-world Verification
+-◻️ Real-world Verification
 
 ## Acknowledgements
 Our implementations are partially based on [VLN-3DFF](https://github.com/MrZihan/Sim2Real-VLN-3DFF) and [ETPNav](https://github.com/MarSaKi/ETPNav). Thanks to the authors for sharing their code.
