@@ -580,7 +580,7 @@ class RLTrainer(BaseVLNCETrainer):
             # sample_ratio = self.config.IL.sample_ratio ** (idx // self.config.IL.decay_interval)
             logs = self._train_interval(interval, self.config.IL.ml_weight, sample_ratio)
 
-            if self.local_rank < 1: ##Loading Contextual Evolution Memory
+            if self.local_rank < 1: 
                 loss_str = f'iter {cur_iter}: '
                 for k, v in logs.items():
                     logs[k] = np.mean(v)
@@ -588,7 +588,7 @@ class RLTrainer(BaseVLNCETrainer):
                     writer.add_scalar(f'loss/{k}', logs[k], cur_iter)
                 logger.info(loss_str)
                 self.save_checkpoint(cur_iter)
-                vp_path = 'data/vpm_1000_wm_im.pkl'
+                vp_path = 'data/vpm_1000_wm_im.pkl' # Load pre-collected contextual evolution memory
                 vp_folder = os.path.dirname(vp_path)
                 os.makedirs(vp_folder, exist_ok=True)
                 self.memory_vft_pos.save_memory(vp_path)
@@ -597,21 +597,9 @@ class RLTrainer(BaseVLNCETrainer):
     def _train_interval(self, interval, ml_weight, sample_ratio):
         
         self.policy.eval()
-
-        # 将需要更新的模块切换为训练模式
         self.policy.net.module.vln_bert.train()
-        """
 
-        # 仅解冻 pos_encoder 和 pos_imagine 模块的参数
-        
-
-        for param in self.policy.net.module.vln_bert.pos_encoder.parameters():
-            param.requires_grad = True
-
-        for param in self.policy.net.module.vln_bert.pos_imagine.parameters():
-            param.requires_grad = True
-        """
-        # 冻结所有参数
+        # Freeze all model parameters, except for those in the vln_bert module
         for param in self.policy.parameters():
             param.requires_grad = False
         for param in self.policy.net.module.vln_bert.parameters():
@@ -631,8 +619,6 @@ class RLTrainer(BaseVLNCETrainer):
             # self.loss = 0.
             self.loss = torch.tensor(0.0, dtype=torch.float32, device='cuda' if torch.cuda.is_available() else 'cpu')
 
-
-
             with autocast():
                 self.rollout('train', ml_weight, sample_ratio)
             print(self.loss)
@@ -640,7 +626,6 @@ class RLTrainer(BaseVLNCETrainer):
             torch.nn.utils.clip_grad_norm_(parameters=self.policy.parameters(), max_norm=5, norm_type=2)
             self.scaler.step(self.optimizer)        # self.optimizer.step()
             self.scaler.update()
-
 
             if self.local_rank < 1:
                 pbar.set_postfix({'iter': f'{idx+1}/{interval}'})
@@ -1377,10 +1362,10 @@ class RLTrainer(BaseVLNCETrainer):
                         ) # delta_p based on real state
             
             
-            if stepk > 0 and prior != None: #############################################################################################################
+            if stepk > 0 and prior != None: # Posterior and prior matching loss
                 loss_prob = self.problistic_loss(prior, posterior)
 
-            if stepk > 0 and pred_cur_position != None:
+            if stepk > 0 and pred_cur_position != None: # Action prediction loss
                 loss_action = self.action_loss(new_position.float(), pred_cur_position.float())
 
             if stepk > 1:
@@ -1388,7 +1373,7 @@ class RLTrainer(BaseVLNCETrainer):
                 real_obser = np.vstack([p.detach().cpu().numpy() for p in real_obser_seq])
 
 
-            pred_cur_position = new_position.unsqueeze(0) + wm_outputs.to('cpu')
+            pred_cur_position = new_position.unsqueeze(0) + wm_outputs.to('cpu') # 
             pred_cur_position = pred_cur_position.squeeze(0)
 
             posterior = {
@@ -1399,10 +1384,10 @@ class RLTrainer(BaseVLNCETrainer):
             
             
             """   """ 
-            if mode == 'eval':
+            if mode == 'eval': # CEM supports the enhanced state representation
                 combined_pano =  torch.cat((vis_embeds, pos_embedding), dim=-1) # 1* 1536 
                 self.memory_vft_pos.push(keys=vis_embeds.detach().cpu().numpy(), logits=combined_pano.detach().cpu().numpy()) # keys: pano features, logits: features with positions
-                enhanced_pano_embeds = self.memory_vft_pos.retrieve_prompt_add_avg(avg_pano_embeds=vis_embeds.detach().cpu().numpy(), combined = combined_pano.detach().cpu().numpy())
+                enhanced_pano_embeds = self.memory_vft_pos.retrieve_prompt_add_avg(avg_pano_embeds=vis_embeds.detach().cpu().numpy(), combined = combined_pano.detach().cpu().numpy()) #
                 vis_embeds_n = enhanced_pano_embeds[:, :768]
                 avg_pano_embeds = vis_embeds_n.to(self.device) ##########################################################################################################
                 # if random.random() < 0.5:
@@ -1446,13 +1431,14 @@ class RLTrainer(BaseVLNCETrainer):
                     gt_path_tensor = gt_path_tensor.to(device)  #
                     current_coord = new_position.unsqueeze(0)
                     current_coord = current_coord.to(device)
-                    nearest_coord, nearest_index, distance = self.find_nearest_coord_torch(current_coord, gt_path_tensor)
+                    nearest_coord, nearest_index, distance = self.find_nearest_coord_torch(current_coord, gt_path_tensor) # Find the nearest ground truth coordinate to the predicted current position
+		    # This ensures the predicted next location aligns with the true trajectory to avoid drifting off-path.
 
                     combined_pano =  torch.cat((vis_embeds, pos_embedding), dim=-1) # 1* 1536 
-                    self.memory_vft_pos.push(keys=vis_embeds.detach().cpu().numpy(), logits=combined_pano.detach().cpu().numpy()) # keys: pano features, logits: features with positions
+                    self.memory_vft_pos.push(keys=vis_embeds.detach().cpu().numpy(), logits=combined_pano.detach().cpu().numpy()) # Online Evolution for CEM
                     
                         
-                    for stepi in range(self.imagine_T):
+                    for stepi in range(self.imagine_T): # Forsight prediction
                         # combined_pano =  torch.cat((avg_pano_embeds, pos_embedding), dim=-1) # 1* 1536 
                         # self.memory_vft_pos.push(keys=avg_pano_embeds.detach().cpu().numpy(), logits=avg_pano_embeds.detach().cpu().numpy()) #new-------------------
                         # enhanced_pano_embeds = self.memory_vft.retrieve_prompt_heads_avg(avg_pano_embeds=avg_pano_embeds.detach().cpu().numpy())
@@ -1476,17 +1462,14 @@ class RLTrainer(BaseVLNCETrainer):
                         im_obser_seq.append(im_observation.clone()) 
                         im_obser = np.vstack([p.detach().cpu().numpy() for p in im_obser_seq])
                         
-
-                        # if stepk > 3:
                         
                         if stepk >= 4 and (2 * stepk - 8) >= 0:
-                          
                             if (stepk - 4) >= 0 and (stepk - 3) <= real_obser.shape[0] and (2 * stepk - 8) >= 0 and (2 * stepk - 7) <= im_obser.shape[0]:
                                 LEN =2
                                 real_segment = real_obser[stepk-4:stepk-3]
                                 im_segment = im_obser[2*stepk-8:2*stepk-7]
-                                ob_dtw_distance = fastdtw(im_segment, real_segment, dist=NDTW.euclidean_distance)[0]
-                                ob_dtw_distance_tensor = torch.tensor(ob_dtw_distance, device='cuda' if torch.cuda.is_available() else 'cpu')  # 将 float 转为 tensor
+                                ob_dtw_distance = fastdtw(im_segment, real_segment, dist=NDTW.euclidean_distance)[0] # NDTW-based regulation for reconstructed visual embedding
+                                ob_dtw_distance_tensor = torch.tensor(ob_dtw_distance, device='cuda' if torch.cuda.is_available() else 'cpu')  
                                 ndtw_ob = torch.exp(-ob_dtw_distance_tensor / (LEN * 3.))
                                 # loss_ob += 1- ndtw_ob
                                 loss_ob += torch.tensor(1.0, device=ndtw_ob.device) - ndtw_ob 
@@ -1501,27 +1484,26 @@ class RLTrainer(BaseVLNCETrainer):
                             loss_ac_im += self.action_loss(cur_position.float(), nearest_coord.float())#-------------
                         # print(cur_position.requires_grad)
                         # imagine_path.append(cur_position.detach().numpy())
-                        #3 imagine_path.append(cur_position.detach().numpy())
+                        # imagine_path.append(cur_position.detach().numpy())
                         # im_path = np.array(imagine_path).squeeze(0)
-                        imagine_path.append(cur_position.clone())  # 直接添加张量
+                        imagine_path.append(cur_position.clone())  
                        
                         cur_position = nearest_coord.clone() #--------------------------
                         nearest_coord = self.get_next_coord(nearest_index, gt_path_tensor)
                         
                         im_path = np.vstack([p.detach().cpu().numpy() for p in imagine_path])
 
-                        dtw_distance = fastdtw(im_path, gt_path_1, dist=NDTW.euclidean_distance)[0]
-                        dtw_distance_tensor = torch.tensor(dtw_distance, device='cuda' if torch.cuda.is_available() else 'cpu')  # 将 float 转为 tensor
+                        dtw_distance = fastdtw(im_path, gt_path_1, dist=NDTW.euclidean_distance)[0] # NDTW-based regulation for action sequnece
+                        dtw_distance_tensor = torch.tensor(dtw_distance, device='cuda' if torch.cuda.is_available() else 'cpu')  #
                         ndtw = torch.exp(-dtw_distance_tensor / (len(gt_path_1) * 3.))
                         vis_embeds = enhanced_pano_embeds[:, :768]
                         combined_pano = enhanced_pano_embeds
                         if not isinstance(loss_im, torch.Tensor):
-                            loss_im = torch.tensor(0.0, device=ndtw.device)  # 初始化为 0 的张量，放在同一个设备上
+                            loss_im = torch.tensor(0.0, device=ndtw.device)  #
 
-                        loss_im += torch.tensor(1.0, device=ndtw.device) - ndtw  # 确保这是一个张量加法操作
+                        loss_im += torch.tensor(1.0, device=ndtw.device) - ndtw  #
                         
                        
-
 
 
             if mode == 'train' or self.config.VIDEO_OPTION:
@@ -1588,9 +1570,6 @@ class RLTrainer(BaseVLNCETrainer):
 
             cpu_a_t = a_t.cpu().numpy()
 
-
-           
-
           
             # make equiv action
             env_actions = []
@@ -1626,9 +1605,8 @@ class RLTrainer(BaseVLNCETrainer):
                     )
                 else:
                     ghost_vp = nav_inputs['gmap_vp_ids'][i][cpu_a_t[i]]
-                    ghost_pos = gmap.ghost_aug_pos[ghost_vp] #### key error?----------------------origin code------------------------------------------------
+                    ghost_pos = gmap.ghost_aug_pos[ghost_vp] #### 
                     ### to solve key error
-                    # 获取 ghost_vp 对应的 ghost_pos，如果 ghost_vp 不存在，尝试使用 '0'
                     #ghost_pos = gmap.ghost_aug_pos.get(ghost_vp, gmap.ghost_aug_pos.get('0', None))
                     ###---------------------------------------------------------------------------------
                     _, front_vp = gmap.front_to_ghost_dist(ghost_vp)
