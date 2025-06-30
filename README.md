@@ -45,7 +45,7 @@ Use pseudo interative demonstrator to equip the model with our NavMorph:
 bash run_r2r/main.bash eval #(run_rxr/main.bash)
 ```
 
-### Note
+### Notes
 
 When transitioning from the RxR dataset to the R2R dataset based on the baseline code, you will need to adjust the camera settings in three places to prevent any simulation issues.
 
