@@ -50,17 +50,17 @@ bash run_r2r/main.bash eval #(run_rxr/main.bash)
 When transitioning from the RxR dataset to the R2R dataset based on the baseline code, you will need to adjust the camera settings in three places to prevent any simulation issues.
 
 1. **Camera HFOV and VFOV Adjustment**:  
-   In `vlnce_bacelines/models/etp/nerf.py`, **lines 57-60**, update the camera's **HFOV** and **VFOV**:
+   In [vlnce_bacelines/models/etp/nerf.py](https://github.com/Feliciaxyao/NavMorph/blob/ae3246b902cdedf8533211ff62b2062cb9ed0e39/vlnce_baselines/models/etp/nerf.py#L57-L60), update the camera's **HFOV** and **VFOV**:
    - Set `HFOV = 90` for R2R.
    - Set `HFOV = 79` for RxR.
 
 2. **Dataset Setting**:  
-   In `vlnce_bacelines/models/Policy_ViewSelection_ETP.py`, **line 41**, modify the `DATASET` variable:
+   In [vlnce_bacelines/models/Policy_ViewSelection_ETP.py](https://github.com/Feliciaxyao/NavMorph/blob/ae3246b902cdedf8533211ff62b2062cb9ed0e39/vlnce_baselines/models/Policy_ViewSelection_ETP.py#L41), modify the `DATASET` variable:
    - Set `DATASET = 'R2R'` for R2R.
    - Set `DATASET = 'rxr'` for RxR.
 
 3. **Camera Configuration**:  
-   In `vlnce_baselines/ss_trainer_ETP.py`, **line 182**, ensure the camera configuration is updated:
+   In [vlnce_baselines/ss_trainer_ETP.py](https://github.com/Feliciaxyao/NavMorph/blob/ae3246b902cdedf8533211ff62b2062cb9ed0e39/vlnce_baselines/ss_trainer_ETP.py#L181), ensure the camera configuration is updated:
    - Set `camera.config.HFOV = 90` for R2R.
    - Set `camera.config.HFOV = 79` for RxR.
 
