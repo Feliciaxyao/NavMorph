@@ -22,7 +22,7 @@ class Memory(object):
         return len(self.memory)
 
     def push(self, keys, logits):
-        mo = 0.5
+        # mo = 0.5 
         keys = keys.reshape(len(keys), self.dimension)
         for i, key in enumerate(keys):
             
@@ -34,9 +34,9 @@ class Memory(object):
                 top_k_indices = np.argsort(similarity_scores)[-5:]  # Top-k indices with highest similarity
                 for idx in top_k_indices:
                     mem_key = all_keys[idx].tobytes()
-                    #mem_key = all_keys[idx].tobytes()
                     top_k_logit = self.memory[mem_key]
                     #self.memory[mem_key] = mo * top_k_logit + (1 - mo) * logits[i]
+                    # Update the memory with a weighted average of the top-k logits
                     self.memory[mem_key] = self.alpha * top_k_logit + (1 - self.alpha) * logits[i]
                 """
                 neighbors, similarity_scores = self.get_topk(np.array([key_flat]), k=5)
@@ -47,38 +47,8 @@ class Memory(object):
 
                 """
             else:
-                # Add new key-logit pair to memory
-                self.memory.update({key.reshape(self.dimension).tobytes(): logits[i]})
-        """
-        for i, key in enumerate(keys):
-            if len(self.memory.keys()) > self.size:
-                self.memory.pop(list(self.memory)[0])
-
-            self.memory.update(
-                {key.reshape(self.dimension).tobytes(): (logits[i])})
-        """
-        
-    def push_hash(self, key, logits):
-        mo = 0.5
-        
-        # 假设 keys 是传入的字符串哈希列表，因此无需 reshape
-        if len(logits.shape) == 0:
-            logits = np.expand_dims(logits, 0)
-    
-        if len(self.memory.keys()) >= self.size:
-        # Memory is full, find the nearest neighbors and update them
-            all_keys = np.frombuffer(np.asarray(list(self.memory.keys())), dtype=np.float32).reshape(self.get_size(), self.dimension)
-            similarity_scores = np.dot(all_keys, np.array(key).reshape(1, -1).T) / (norm(all_keys, axis=1) * norm(key.reshape(1, -1).T))
-            top_k_indices = np.argsort(similarity_scores)[-5:]  # Top-k indices with highest similarity
-            for idx in top_k_indices:
-                mem_key = all_keys[idx].tobytes()
-                top_k_logit = self.memory[mem_key]
-                self.memory[mem_key] = self.alpha * top_k_logit + (1 - self.alpha) * logits
-        else:
-        # Add new key-logit pair to memory
-            self.memory.update({key: logits})
-
-        
+                # Memory is not full, add new key-logit pair to memory
+                self.memory.update({key.reshape(self.dimension).tobytes(): logits[i]})    
         
 
     def _prepare_batch(self, sample, attention_weight):
@@ -151,7 +121,7 @@ class Memory(object):
     
 
 
-#22222222222222222222222222222222222222222222222222222222222222222222222---------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------Contextual Evolution Memory
 class Memory_vft(object):
     """
         Create the empty memory buffer
