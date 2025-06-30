@@ -124,8 +124,8 @@ class ETP(Net):
 
         self.space_pool_rgb = nn.Sequential(nn.AdaptiveAvgPool2d((1,1)), nn.Flatten(start_dim=2))
     
-        self.pano_img_idxes = np.arange(0, 12, dtype=np.int64)        # 逆时针
-        pano_angle_rad_c = (1-self.pano_img_idxes/12) * 2 * math.pi   # 对应到逆时针
+        self.pano_img_idxes = np.arange(0, 12, dtype=np.int64)        # anticlockwise
+        pano_angle_rad_c = (1-self.pano_img_idxes/12) * 2 * math.pi   # anticlockwise
         self.pano_angle_fts = angle_feature_torch(torch.from_numpy(pano_angle_rad_c))
 
 
@@ -346,13 +346,13 @@ class ETP(Net):
                 distance_idxes = batch_distance_idxes[j]
 
                 # for angle & distance
-                angle_rad_c = angle_idxes.cpu().float()/120*2*math.pi       # 顺时针
-                angle_rad_cc = 2*math.pi-angle_idxes.float()/120*2*math.pi  # 逆时针
+                angle_rad_c = angle_idxes.cpu().float()/120*2*math.pi       # clockwise
+                angle_rad_cc = 2*math.pi-angle_idxes.float()/120*2*math.pi  # anticlockwise
                 cand_angle_fts.append( angle_feature_torch(angle_rad_c) )
                 cand_angles.append(angle_rad_cc.tolist())
                 cand_distances.append( (distance_idxes*0.25).tolist() )
                 # for img idxes
-                img_idxes = 12 - (angle_idxes.cpu().numpy()+5) // 10        # 逆时针
+                img_idxes = 12 - (angle_idxes.cpu().numpy()+5) // 10        # anticlockwise
                 img_idxes[img_idxes==12] = 0
                 cand_img_idxes.append(img_idxes)
                 # for rgb & depth
@@ -365,8 +365,8 @@ class ETP(Net):
             pano_angle_fts = deepcopy(self.pano_angle_fts)  # 12 x 4
             pano_img_idxes = deepcopy(self.pano_img_idxes)  # 12
 
-            # cand_angle_fts 顺时针
-            # cand_angles 逆时针
+            # cand_angle_fts clockwise
+            # cand_angles anticlockwise
             outputs = {
                 'cand_rgb': cand_rgb,               # [K x 2048]
              
