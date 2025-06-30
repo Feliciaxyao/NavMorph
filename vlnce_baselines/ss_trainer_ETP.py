@@ -98,7 +98,7 @@ class RLTrainer(BaseVLNCETrainer):
         self.neighbor = config.neighbor
         self.image_size = config.image_size
         self.prompt = Prompt(prompt_alpha=self.prompt_alpha, image_size=self.image_size).to(self.device)
-        self.memory_bank = Memory(size=config.memory_size, dimension=self.prompt.data_prompt.numel())
+        # self.memory_bank = Memory(size=config.memory_size, dimension=self.prompt.data_prompt.numel())
         self.memory_vft_pos = Memory_vft(size=config.memory_size, dimension=1*1536)
         self.imagine_T = config.imagine_T
         self.problistic_loss = KLLoss(alpha=0.5)
