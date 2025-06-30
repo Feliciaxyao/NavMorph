@@ -35,14 +35,14 @@ conda env create -f environment.yaml
 
 Use pseudo interative demonstrator to train the world model Navmorph:
 ```
-bash run_r2r/main.bash train #(run_rxr/main.bash)
+bash run_r2r/main.bash train # (run_rxr/main.bash)
 ```
 
 ### Online Evaluation on R2R-CE / RxR-CE
 
 Use pseudo interative demonstrator to equip the model with our NavMorph:
 ```
-bash run_r2r/main.bash eval #(run_rxr/main.bash)
+bash run_r2r/main.bash eval # (run_rxr/main.bash)
 ```
 
 ### Notes
