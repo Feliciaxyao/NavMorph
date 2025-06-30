@@ -30,12 +30,24 @@ conda env create -f environment.yaml
 ```
 4. Please download the pretrained models and checkpoints from [GoogleDrive](https://drive.google.com/file/d/1x01wods-LUA6EyAD8C3ahiEaO8lKD6jy/view?usp=sharing).
 
-### Online Evaluation
+
+### Training for R2R-CE / RxR-CE
+
+Use pseudo interative demonstrator to train the world model Navmorph:
+```
+bash run_r2r/main.bash train #(run_rxr/main.bash)
+```
+
+### Online Evaluation on R2R-CE / RxR-CE
 
 Use pseudo interative demonstrator to equip the model with our NavMorph:
 ```
-bash run_r2r/main.bash eval 
+bash run_r2r/main.bash eval #(run_rxr/main.bash)
 ```
+
+## Note
+
+When change
 
 ## Acknowledgements
 Our implementations are partially based on [VLN-3DFF](https://github.com/MrZihan/Sim2Real-VLN-3DFF) and [ETPNav](https://github.com/MarSaKi/ETPNav). Thanks to the authors for sharing their code.
