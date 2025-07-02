@@ -57,7 +57,7 @@ When transitioning from the RxR dataset to the R2R dataset based on the baseline
 2. **Dataset Setting**:  
    In [vlnce_bacelines/models/Policy_ViewSelection_ETP.py](https://github.com/Feliciaxyao/NavMorph/blob/ae3246b902cdedf8533211ff62b2062cb9ed0e39/vlnce_baselines/models/Policy_ViewSelection_ETP.py#L41), modify the `DATASET` variable:
    - Set `DATASET = 'R2R'` for R2R.
-   - Set `DATASET = 'rxr'` for RxR.
+   - Set `DATASET = 'RxR'` for RxR.
 
 3. **Camera Configuration**:  
    In [vlnce_baselines/ss_trainer_ETP.py](https://github.com/Feliciaxyao/NavMorph/blob/ae3246b902cdedf8533211ff62b2062cb9ed0e39/vlnce_baselines/ss_trainer_ETP.py#L181), ensure the camera configuration is updated:
