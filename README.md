@@ -47,7 +47,7 @@ bash run_r2r/main.bash eval # (run_rxr/main.bash)
 
 ### Notes❗
 
-When transitioning from the RxR dataset to the R2R dataset based on the baseline code, you will need to adjust the camera settings in three places to prevent any simulation issues.
+When transitioning from the R2R dataset to the RxR dataset based on the baseline code, you will need to adjust the camera settings in three places to prevent any simulation issues.
 
 1. **Camera HFOV and VFOV Adjustment**:  
    In [vlnce_bacelines/models/etp/nerf.py](https://github.com/Feliciaxyao/NavMorph/blob/ae3246b902cdedf8533211ff62b2062cb9ed0e39/vlnce_baselines/models/etp/nerf.py#L57-L60), update the camera's **HFOV** and **VFOV**:
