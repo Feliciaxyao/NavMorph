@@ -19,16 +19,16 @@ Inspired by human cognition, we present NavMorph, a self-evolving world model fr
 2. Install `torch_kdtree` and `tinycudann`: follow instructions [here](https://github.com/MrZihan/Sim2Real-VLN-3DFF). 
 
 3. Install requirements:
-```setup
-conda create --name morph python=3.7.11
-conda activate morph
-```
-* Required packages are listed in `environment.yaml`. You can install by running:
-
-```
-conda env create -f environment.yaml
-```
+   ```setup
+   conda create --name morph python=3.7.11
+   conda activate morph
+   ```
+   * Required packages are listed in `environment.yaml`. You can install by running:
    
+   ```
+   conda env create -f environment.yaml
+   ```
+      
 
 ### Dataset Preparation
 
