@@ -75,7 +75,7 @@ conda env create -f environment.yaml
           └── bert-base-uncased
      ```
 
-   We will soon provide a clean, organized compressed package matching this structure for easy download, ensuring you can quickly set up the environment without additional sorting steps.
+   🧑‍💻 We will soon provide a clean, organized compressed package matching this structure for easy download.
 
 ### Training for R2R-CE / RxR-CE
 
