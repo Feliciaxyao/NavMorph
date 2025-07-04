@@ -79,21 +79,21 @@ Inspired by human cognition, we present NavMorph, a self-evolving world model fr
 
 ### Training for R2R-CE / RxR-CE
 
-Use pseudo interative demonstrator to train the world model Navmorph:
-```
-bash run_r2r/main.bash train # (run_rxr/main.bash)
-```
+   Use pseudo interative demonstrator to train the world model Navmorph:
+   ```
+   bash run_r2r/main.bash train # (run_rxr/main.bash)
+   ```
 
 ### Online Evaluation on R2R-CE / RxR-CE
 
-Use pseudo interative demonstrator to equip the model with our NavMorph:
-```
-bash run_r2r/main.bash eval # (run_rxr/main.bash)
-```
+   Use pseudo interative demonstrator to equip the model with our NavMorph:
+   ```
+   bash run_r2r/main.bash eval # (run_rxr/main.bash)
+   ```
 
 ### Notes❗
 
-When transitioning from the R2R dataset to the RxR dataset based on the baseline code, you will need to adjust the camera settings in three places to prevent any simulation issues.
+   When transitioning from the R2R dataset to the RxR dataset based on the baseline code, you will need to adjust the camera settings in three places to prevent any simulation issues.
 
 1. **Camera HFOV and VFOV Adjustment**:  
    In [vlnce_bacelines/models/etp/nerf.py](https://github.com/Feliciaxyao/NavMorph/blob/ae3246b902cdedf8533211ff62b2062cb9ed0e39/vlnce_baselines/models/etp/nerf.py#L57-L60), update the camera's **HFOV** and **VFOV**:
@@ -110,15 +110,15 @@ When transitioning from the R2R dataset to the RxR dataset based on the baseline
    - Set `camera.config.HFOV = 90` for R2R.
    - Set `camera.config.HFOV = 79` for RxR.
 
-These adjustments are essential for proper camera calibration and to avoid discrepancies during simulation.
+   These adjustments are essential for proper camera calibration and to avoid discrepancies during simulation.
 
 ## 📢 TODO list：
 
--◻️ Checkpoints for RxR-CE release
-
--◻️ Pre-trained CEM for RxR-CE release
-
--◻️ Real-world Verification
+   -◻️ Checkpoints for RxR-CE release
+   
+   -◻️ Pre-trained CEM for RxR-CE release
+   
+   -◻️ Real-world Verification
 
 ## Acknowledgements
 Our implementations are partially based on [VLN-3DFF](https://github.com/MrZihan/Sim2Real-VLN-3DFF) and [ETPNav](https://github.com/MarSaKi/ETPNav). Thanks to the authors for sharing their code.
