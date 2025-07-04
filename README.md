@@ -61,15 +61,21 @@ Inspired by human cognition, we present NavMorph, a self-evolving world model fr
       │   │   └── ckpt.pth
       │   ├── vpm_1000_wm_im.pkl
       │   ├── datasets
+      │   |   ├── R2R_VLNCE_v1-2
+      │   |   ├── R2R_VLNCE_v1-2_preprocessed
+      │   |   ├── R2R_VLNCE_v1-2_BERTidx
+      │   |   └── RxR_VLNCE_v0_enc_xlmr
       │   ├── logs
       │   ├── scene_datasets
       │   └── wp_pred
-      │       └── cwp_predictor.pth
+      │       ├── check_cwp_bestdist_hfov90
+      │       └── check_cwp_bestdist_hfov63
       ├── pretrained
       │   ├── NeRF_p16_8x8.pth
       │   ├── ViT-B-32.pt
       │   ├── segm.pt
       │   ├── resnet18-f37072fd.pth
+      │   ├── cwp_predictor.pth
       │   └── model_step_100000.pt
       └── bert_config
           └── bert-base-uncased
