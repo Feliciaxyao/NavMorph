@@ -28,8 +28,54 @@ conda activate morph
 ```
 conda env create -f environment.yaml
 ```
-4. Please download the pretrained models and checkpoints from [GoogleDrive](https://drive.google.com/file/d/1x01wods-LUA6EyAD8C3ahiEaO8lKD6jy/view?usp=sharing).
+   
 
+### Dataset Preparation
+
+1. **Scenes for Matterport3D**
+
+   > Instructions copied from [VLN-CE](https://github.com/jacobkrantz/VLN-CE)
+
+   Matterport3D (MP3D) scene reconstructions are used. The official Matterport3D download script (`download_mp.py`) can be accessed by following the instructions on their [project webpage](https://niessner.github.io/Matterport/). The scene data can then be downloaded:
+
+   ```bash
+   # requires running with python 2.7
+   python download_mp.py --task habitat -o data/scene_datasets/mp3d/
+   ```
+   
+   Extract such that it has the form `scene_datasets/mp3d/{scene}/{scene}.glb`. There should be 90 scenes. Place the `scene_datasets` folder in `data/`.
+
+2. **Data and Trained Models**
+  
+   Please download the pretrained models and checkpoints from [GoogleDrive](https://drive.google.com/file/d/1x01wods-LUA6EyAD8C3ahiEaO8lKD6jy/view?usp=sharing).
+   
+    ```
+     unzip NavMorph-8324.zip    
+    ```
+      Overall, files and folds should be organized as follows:
+   
+     ```
+      NavMorph
+      ├── data
+      │   ├── checkpoints
+      │   │   └── ckpt.pth
+      │   ├── vpm_1000_wm_im.pkl
+      │   ├── datasets
+      │   ├── logs
+      │   ├── scene_datasets
+      │   └── wp_pred
+      │       └── cwp_predictor.pth
+      ├── pretrained
+      │   ├── NeRF_p16_8x8.pth
+      │   ├── ViT-B-32.pt
+      │   ├── segm.pt
+      │   ├── resnet18-f37072fd.pth
+      │   └── model_step_100000.pt
+      └── bert_config
+          └── bert-base-uncased
+     ```
+
+   We will soon provide a clean, organized compressed package matching this structure for easy download, ensuring you can quickly set up the environment without additional sorting steps.
 
 ### Training for R2R-CE / RxR-CE
 
