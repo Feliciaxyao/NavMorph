@@ -141,6 +141,6 @@ If you find this project useful in your research, please consider cite:
   title={NavMorph: A Self-Evolving World Model for Vision-and-Language Navigation in Continuous Environments},
   author={Xuan Yao, Junyu Gao and Changsheng Xu},
   booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
-  pages={},
+  pages={5536-5546},
   year={2025}
 } 
