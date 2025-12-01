@@ -85,17 +85,18 @@ Inspired by human cognition, we present NavMorph, a self-evolving world model fr
 
 3. **Supplementary Notes** 📌
 
-   - **2025-11-28 Update:**  
-     Clarified missing pretrained files (data/wp_pred/, *e.g., waypoint prediction models*, Vision backbone weights, *e.g., ViT-B-32.pth*) and provided external download links.  
-     → See [Issue #11](https://github.com/Feliciaxyao/NavMorph/issues/11) for details.
+   - **2025-11-28 Update:**  → See [Issue #11](https://github.com/Feliciaxyao/NavMorph/issues/11) for details.
+   
+     Clarified missing pretrained files (*e.g., waypoint prediction models* — `data/wp_pred/`, *e.g., Vision backbone weights* — `data/pretrained/ViT-B-32.pth`, ) and provided external download links.
 
-   - **2025-11-28 Update:**  
-     Clarified missing BERT model weights required by NavMorph (data/bert_config/bert-base-uncased) and provided external download links. 
-     → See [Issue #12](https://github.com/Feliciaxyao/NavMorph/issues/11) for details.
+   - **2025-11-28 Update:**   → See [Issue #12](https://github.com/Feliciaxyao/NavMorph/issues/12) for details.
      
-   - **2025-12-01 Update:**  
-     Clarified the absence of the datasets (R2R_VLNCE_v1-2_preprocessed_BERTidx and RxR_VLNCE_v0_enc_xlmr) and provided external download links.  
-     → See [Issue #13](https://github.com/Feliciaxyao/NavMorph/issues/13) for details.
+     Clarified missing BERT model weights required by NavMorph (`data/bert_config/bert-base-uncased`) and provided external download links.
+     
+   - **2025-12-01 Update:**    → See [Issue #13](https://github.com/Feliciaxyao/NavMorph/issues/13) for details.
+
+     Clarified the absence of the datasets (`R2R_VLNCE_v1-2_preprocessed_BERTidx` and `RxR_VLNCE_v0_enc_xlmr`) and provided external download links.  
+    
 
 
 ### Training for R2R-CE / RxR-CE
