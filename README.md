@@ -63,7 +63,7 @@ Inspired by human cognition, we present NavMorph, a self-evolving world model fr
       │   ├── datasets
       │   |   ├── R2R_VLNCE_v1-2
       │   |   ├── R2R_VLNCE_v1-2_preprocessed
-      │   |   ├── R2R_VLNCE_v1-2_BERTidx
+      │   |   ├── R2R_VLNCE_v1-2_preprocessed_BERTidx
       │   |   └── RxR_VLNCE_v0_enc_xlmr
       │   ├── logs
       │   ├── scene_datasets
