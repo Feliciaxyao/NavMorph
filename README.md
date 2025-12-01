@@ -83,6 +83,21 @@ Inspired by human cognition, we present NavMorph, a self-evolving world model fr
 
    🧑‍💻 We will soon provide a clean, organized compressed package matching this structure for easy download.
 
+3. **Supplementary Notes** 📌
+
+   - **2025-11-28 Update:**  
+     Clarified missing pretrained files (data/wp_pred/, *e.g., waypoint prediction models*, Vision backbone weights, *e.g., ViT-B-32.pth*) and provided external download links.  
+     → See [Issue #11](https://github.com/Feliciaxyao/NavMorph/issues/11) for details.
+
+   - **2025-11-28 Update:**  
+     Clarified missing BERT model weights required by NavMorph (data/bert_config/bert-base-uncased) and provided external download links. 
+     → See [Issue #12](https://github.com/Feliciaxyao/NavMorph/issues/11) for details.
+     
+   - **2025-12-01 Update:**  
+     Clarified the absence of the datasets (R2R_VLNCE_v1-2_preprocessed_BERTidx and RxR_VLNCE_v0_enc_xlmr) and provided external download links.  
+     → See [Issue #13](https://github.com/Feliciaxyao/NavMorph/issues/13) for details.
+
+
 ### Training for R2R-CE / RxR-CE
 
    Use pseudo interative demonstrator to train the world model Navmorph:
