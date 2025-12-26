@@ -1371,6 +1371,8 @@ class RLTrainer(BaseVLNCETrainer):
             if stepk > 1:
                 real_obser_seq.append(obser_mean.clone())
                 real_obser = np.vstack([p.detach().cpu().numpy() for p in real_obser_seq])
+				## update 
+				real_obser_tensor = torch.stack(real_obser_seq, dim=0)   # (T, D)
 
 
             pred_cur_position = new_position.unsqueeze(0) + wm_outputs.to('cpu') # 
@@ -1861,3 +1863,4 @@ class RLTrainer(BaseVLNCETrainer):
                 self.logs['IL_loss'].append(loss.item())
                 #######
            
+
